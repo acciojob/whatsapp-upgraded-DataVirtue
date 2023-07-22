@@ -65,7 +65,7 @@ public class WhatsappRepository {
 
         for(User user: users){
             userGroupMap.put(user.getMobile(),group.getName());
-//            mobileUserMap.put(user.getMobile(),user);
+            mobileUserMap.put(user.getMobile(),user);
         }
 
 
