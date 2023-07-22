@@ -65,7 +65,7 @@ public class WhatsappRepository {
 
         for(User user: users){
             userGroupMap.put(user.getMobile(),group.getName());
-            mobileUserMap.put(user.getMobile(),user);
+//            createUser(user.getName(),user.getMobile());
         }
 
 
@@ -157,9 +157,11 @@ public class WhatsappRepository {
 
             List<Message> messageList = userMessageMap.get(user.getMobile());
 
-            for (Message message : messageList) {
-                groupMessageMap.get(groupName).remove(message);
+            if(messageList!=null) {
+                for (Message message : messageList) {
+                    groupMessageMap.get(groupName).remove(message);
 
+                }
             }
 
             userMessageMap.remove(user.getMobile());
