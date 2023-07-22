@@ -115,12 +115,12 @@ public class WhatsappRepository {
         if(!adminGroupMap.get(group.getName()).equals(approver.getMobile())){
             throw new Exception("Approver does not have rights");
         }
-//        User originalUser = mobileUserMap.get(user.getMobile());
-        if(!groupUserMap.get(group.getName()).contains(user)){
+        User originalUser = mobileUserMap.get(user.getMobile());
+        if(!groupUserMap.get(group.getName()).contains(originalUser)){
             throw new Exception("User is not a participant" );
         }
 
-        adminGroupMap.remove(group.getName());
+//        adminGroupMap.remove(group.getName());
 
         adminGroupMap.put(group.getName(),user.getMobile());
 
@@ -144,7 +144,7 @@ public class WhatsappRepository {
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
 
-        if(adminGroupMap.get(groupName).equals(originalUser.getMobile())){
+        if(adminGroupMap.get(groupName).equals(user.getMobile())){
             throw new Exception("Cannot remove admin");
         }
 
@@ -168,7 +168,7 @@ public class WhatsappRepository {
             for (List<Message> list : groupMessageMap.values()) {
                 overallMessages += list.size();
             }
-            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() - 1);
+            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
         }
 
         return groupUserMap.get(groupName).size() + groupMessageMap.get(groupName).size() + overallMessages;
