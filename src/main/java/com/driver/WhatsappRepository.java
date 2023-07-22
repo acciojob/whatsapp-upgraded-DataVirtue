@@ -180,7 +180,7 @@ public class WhatsappRepository {
 //            ans +=groupMessageMap.get(groupName).size();
 //        }
 
-        return ans + overallMessages;
+        return ans + idMessageMap.size();
 
 
 
