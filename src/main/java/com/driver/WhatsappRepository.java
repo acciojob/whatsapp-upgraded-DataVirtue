@@ -65,7 +65,7 @@ public class WhatsappRepository {
 
         for(User user: users){
             userGroupMap.put(user.getMobile(),group.getName());
-            mobileUserMap.put(user.getMobile(),user);
+//            mobileUserMap.put(user.getMobile(),user);
         }
 
 
@@ -137,13 +137,16 @@ public class WhatsappRepository {
             throw new Exception("User not found");
         }
 
-        if(adminGroupMap.containsKey(user.getMobile())){
-            throw new Exception("Cannot remove admin");
-        }
+
         User originalUser = mobileUserMap.get(user.getMobile());
 
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
+
+        if(adminGroupMap.containsKey(groupName)){
+            throw new Exception("Cannot remove admin");
+        }
+
 
         int overallMessages = 0;
 
@@ -164,7 +167,7 @@ public class WhatsappRepository {
             for (List<Message> list : groupMessageMap.values()) {
                 overallMessages += list.size();
             }
-            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
+            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() - 1);
         }
 
         return groupUserMap.get(groupName).size() + groupMessageMap.get(groupName).size() + overallMessages;
