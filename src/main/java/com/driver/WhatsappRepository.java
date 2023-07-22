@@ -83,7 +83,7 @@ public class WhatsappRepository {
 //        if(!mobileUserMap.containsKey(sender.getMobile())){
 //            throw new Exception("Invalid User");
 //        }
-        if(!nameGroupMap.containsKey(group.getName())){
+        if(group==null || !nameGroupMap.containsKey(group.getName())){
             throw new Exception("Group does not exist");
         }
 
@@ -119,6 +119,11 @@ public class WhatsappRepository {
 
     public int removeUser(User user) throws Exception {
 
+        if(user==null) {
+            throw new Exception("User not found");
+        }
+
+
         if(!mobileUserMap.containsKey(user.getMobile())){
             throw new Exception("User not found");
         }
@@ -130,6 +135,7 @@ public class WhatsappRepository {
 
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
+
 
         groupUserMap.get(groupName).remove(originalUser);
 
