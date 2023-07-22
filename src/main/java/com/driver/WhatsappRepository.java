@@ -98,7 +98,8 @@ public class WhatsappRepository {
             throw new Exception("You are not allowed to send message");
         }
         groupMessageMap.get(group.getName()).add(message);
-        userMessageMap.get(sender.getMobile()).add(message);
+        if(sender!=null && userMessageMap.get(sender.getMobile())!=null)
+            userMessageMap.get(sender.getMobile()).add(message);
 //        userGroupMap.put(sender.getMobile(),group.getName());
         return groupMessageMap.get(group.getName()).size();
 
@@ -129,8 +130,7 @@ public class WhatsappRepository {
         if(user==null) {
             throw new Exception("User not found");
         }
-        System.out.println(mobileUserMap);
-        System.out.println(user.getMobile());
+
 
         if(!mobileUserMap.containsKey(user.getMobile())){
             throw new Exception("User not found");
