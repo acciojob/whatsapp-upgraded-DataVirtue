@@ -144,12 +144,13 @@ public class WhatsappRepository {
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
 
-        if(adminGroupMap.get(groupName).equals(user.getMobile())){
+        if(adminGroupMap.get(groupName)!=null && adminGroupMap.get(groupName).equals(user.getMobile())){
             throw new Exception("Cannot remove admin");
         }
 
 
         int overallMessages = 0;
+        int ans = 0;
 
         if(groupUserMap.get(groupName)!=null) {
             groupUserMap.get(groupName).remove(originalUser);
@@ -169,9 +170,13 @@ public class WhatsappRepository {
                 overallMessages += list.size();
             }
             nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
+            ans+=groupUserMap.get(groupName).size();
+        }
+        if(groupMessageMap.get(groupName)!=null ){
+            ans +=groupMessageMap.get(groupName).size();
         }
 
-        return groupUserMap.get(groupName).size() + groupMessageMap.get(groupName).size() + overallMessages;
+        return ans + overallMessages;
 
 
 
