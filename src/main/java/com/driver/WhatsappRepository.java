@@ -32,6 +32,7 @@ public class WhatsappRepository {
 
 
 
+
     public String createUser(String name, String mobile) throws Exception {
 
 
@@ -39,7 +40,7 @@ public class WhatsappRepository {
             throw new Exception("User already exists");
         }
         User user = new User(name,mobile);
-        mobileUserMap.put(mobile,user);
+        mobileUserMap.put(user.getMobile(),user);
         userMessageMap.put(user.getMobile(),new ArrayList<>());
 
         return "SUCCESS";
@@ -48,6 +49,7 @@ public class WhatsappRepository {
     public Group createGroup(List<User> users) {
 
         Group group = new Group();
+
         if(users.size()==2){
             group.setName(users.get(1).getName());
         }else{
@@ -127,7 +129,8 @@ public class WhatsappRepository {
         if(user==null) {
             throw new Exception("User not found");
         }
-
+        System.out.println(mobileUserMap);
+        System.out.println(user.getMobile());
 
         if(!mobileUserMap.containsKey(user.getMobile())){
             throw new Exception("User not found");
@@ -141,24 +144,27 @@ public class WhatsappRepository {
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
 
-
-        groupUserMap.get(groupName).remove(originalUser);
-
-        List<Message> messageList = userMessageMap.get(user.getMobile());
-
-        for(Message message: messageList){
-            groupMessageMap.get(groupName).remove(message);
-
-        }
-
-        userMessageMap.remove(user.getMobile());
-
         int overallMessages = 0;
 
-        for(List<Message> list: groupMessageMap.values()){
-            overallMessages+= list.size();
+        if(groupUserMap.get(groupName)!=null) {
+            groupUserMap.get(groupName).remove(originalUser);
+
+            List<Message> messageList = userMessageMap.get(user.getMobile());
+
+            for (Message message : messageList) {
+                groupMessageMap.get(groupName).remove(message);
+
+            }
+
+            userMessageMap.remove(user.getMobile());
+
+
+
+            for (List<Message> list : groupMessageMap.values()) {
+                overallMessages += list.size();
+            }
+            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
         }
-        nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
 
         return groupUserMap.get(groupName).size() + groupMessageMap.get(groupName).size() + overallMessages;
 
