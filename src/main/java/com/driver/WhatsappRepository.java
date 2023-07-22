@@ -65,7 +65,7 @@ public class WhatsappRepository {
 
         for(User user: users){
             userGroupMap.put(user.getMobile(),group.getName());
-//            mobileUserMap.put(user.getMobile(),user);
+            mobileUserMap.put(user.getMobile(),user);
         }
 
 
@@ -128,9 +128,9 @@ public class WhatsappRepository {
 
     public int removeUser(User user) throws Exception {
 
-//        if(user==null) {
-//            throw new Exception("User not found");
-//        }
+        if(user==null) {
+            throw new Exception("User not found");
+        }
 
 
         if(!mobileUserMap.containsKey(user.getMobile())){
