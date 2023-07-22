@@ -65,6 +65,7 @@ public class WhatsappRepository {
 
         for(User user: users){
             userGroupMap.put(user.getMobile(),group.getName());
+//            mobileUserMap.put(user.getMobile(),user);
         }
 
 
@@ -107,9 +108,9 @@ public class WhatsappRepository {
 
     public String changeAdmin(User approver, User user, Group group) throws Exception {
 
-        if(!nameGroupMap.containsKey(group.getName())){
-            throw new Exception("Group does not exist");
-        }
+//        if(!nameGroupMap.containsKey(group.getName())){
+//            throw new Exception("Group does not exist");
+//        }
 
         if(!adminGroupMap.get(group.getName()).equals(approver.getMobile())){
             throw new Exception("Approver does not have rights");
