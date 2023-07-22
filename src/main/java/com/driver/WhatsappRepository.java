@@ -61,6 +61,10 @@ public class WhatsappRepository {
         groupUserMap.put(group.getName(),users);
         groupMessageMap.put(group.getName(),new ArrayList<>());
 
+        for(User user: users){
+            userGroupMap.put(user.getMobile(),group.getName());
+        }
+
 
         return group;
 
@@ -93,7 +97,7 @@ public class WhatsappRepository {
         }
         groupMessageMap.get(group.getName()).add(message);
         userMessageMap.get(sender.getMobile()).add(message);
-        userGroupMap.put(sender.getMobile(),group.getName());
+//        userGroupMap.put(sender.getMobile(),group.getName());
         return groupMessageMap.get(group.getName()).size();
 
     }
@@ -154,6 +158,7 @@ public class WhatsappRepository {
         for(List<Message> list: groupMessageMap.values()){
             overallMessages+= list.size();
         }
+        nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
 
         return groupUserMap.get(groupName).size() + groupMessageMap.get(groupName).size() + overallMessages;
 
