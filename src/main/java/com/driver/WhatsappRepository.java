@@ -36,7 +36,7 @@ public class WhatsappRepository {
 
 
         if(mobileUserMap.containsKey(mobile)){
-            throw new Exception("User Already Exists");
+            throw new Exception("User already exists");
         }
         User user = new User(name,mobile);
         mobileUserMap.put(mobile,user);
@@ -80,9 +80,9 @@ public class WhatsappRepository {
 
     public int sendMessage(Message message, User sender, Group group) throws Exception {
 
-        if(!mobileUserMap.containsKey(sender.getMobile())){
-            throw new Exception("Invalid User");
-        }
+//        if(!mobileUserMap.containsKey(sender.getMobile())){
+//            throw new Exception("Invalid User");
+//        }
         if(!nameGroupMap.containsKey(group.getName())){
             throw new Exception("Group does not exist");
         }
