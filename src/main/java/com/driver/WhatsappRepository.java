@@ -173,7 +173,7 @@ public class WhatsappRepository {
             for (List<Message> list : groupMessageMap.values()) {
                 overallMessages += list.size();
             }
-            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() + 1);
+            nameGroupMap.get(groupName).setNumberOfParticipants(nameGroupMap.get(groupName).getNumberOfParticipants() - 1);
             ans+=groupUserMap.get(groupName).size();
         }
         if(groupMessageMap.get(groupName)!=null ){
