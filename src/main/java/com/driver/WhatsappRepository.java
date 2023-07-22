@@ -115,6 +115,7 @@ public class WhatsappRepository {
         if(!adminGroupMap.get(group.getName()).equals(approver.getMobile())){
             throw new Exception("Approver does not have rights");
         }
+//        User originalUser = mobileUserMap.get(user.getMobile());
         if(!groupUserMap.get(group.getName()).contains(user)){
             throw new Exception("User is not a participant" );
         }
@@ -143,7 +144,7 @@ public class WhatsappRepository {
         mobileUserMap.remove(user.getMobile());
         String groupName = userGroupMap.get(user.getMobile());
 
-        if(adminGroupMap.containsKey(groupName)){
+        if(adminGroupMap.get(groupName).equals(originalUser.getMobile())){
             throw new Exception("Cannot remove admin");
         }
 
